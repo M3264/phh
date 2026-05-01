@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pharos — Pacific Ocean</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+    :root {
+      --cream:    #f7f4ee;
+      --cream-d:  #edeae2;
+      --ink:      #0d0c0a;
+      --ink-soft: #2d2b28;
+      --muted:    #888580;
+      --gold:     #b8972f;
+      --gold-lt:  #d4b45a;
+      --rule:     #d8d4cc;
+      --serif:    'Playfair Display', Georgia, serif;
+      --body:     'Libre Baskerville', Georgia, serif;
+      --mono:     'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    /* ── HEADER BAR ── */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 48px;
+      border-bottom: 2px solid var(--ink);
+      position: sticky;
+      top: 0;
+      background: var(--cream);
+      z-index: 50;
+    }
+
+    .header-bar-left {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .header-logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-bar-right {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 64px 48px 64px 48px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-hed {
+      font-family: var(--serif);
+      font-size: clamp(52px, 7vw, 104px);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    .hero-hed em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-dek {
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      max-width: 520px;
+      border-left: 3px solid var(--gold);
+      padding-left: 20px;
+      margin-bottom: 40px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item .label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .hero-meta-item .value {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .hero-right {
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* geometric art fill */
+    .hero-art {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+    }
+
+    .hero-art svg { width: 100%; height: 100%; }
+
+    .hero-live {
+      position: relative;
+      z-index: 2;
+    }
+
+    .live-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-lt);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .live-stat {
+      margin-bottom: 20px;
+    }
+
+    .live-stat .ls-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .live-stat .ls-value {
+      font-family: var(--serif);
+      font-size: 44px;
+      font-weight: 700;
+      color: white;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .live-stat .ls-value.loading {
+      font-size: 18px;
+      font-family: var(--mono);
+      font-weight: 400;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .live-stat .ls-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 3px;
+    }
+
+    .hero-quote {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 28px;
+    }
+
+    .hero-quote blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-style: normal;
+      color: var(--gold-lt);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── TICKER STRIP ── */
+    .ticker-strip {
+      background: var(--ink);
+      padding: 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 0;
+      padding: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .ticker-inner::-webkit-scrollbar { display: none; }
+
+    .tick-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tick-item .t-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .tick-item .t-val {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold-lt);
+    }
+
+    /* ── BODY SECTIONS ── */
+    .article {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 52px 0 0;
+      margin-bottom: 40px;
+      border-top: 2px solid var(--ink);
+    }
+
+    .sd-num {
+      font-family: var(--serif);
+      font-size: 80px;
+      font-weight: 900;
+      color: var(--cream-d);
+      line-height: 1;
+      margin-right: 20px;
+      letter-spacing: -0.05em;
+    }
+
+    .sd-text h2 {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .sd-text .sd-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    /* ── 2-COL PROSE ── */
+    .two-col-prose {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 60px;
+    }
+
+    .prose p {
+      margin-bottom: 20px;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 56px 80px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin: 0 -48px 60px;
+    }
+
+    .pull-quote blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      max-width: 900px;
+      margin: 0 auto;
+      color: var(--ink);
+    }
+
+    .pull-quote cite {
+      display: block;
+      margin-top: 20px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--rule);
+      margin-bottom: 60px;
+    }
+
+    .stat-cell {
+      padding: 32px;
+      border-right: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-cell::after {
+      content: '';
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .stat-cell .sc-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .stat-cell .sc-value {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-cell .sc-note {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      margin-bottom: 60px;
+      padding-left: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 160px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: start;
+    }
+
+    .tl-item:first-child { border-top: 1px solid var(--rule); }
+
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-align: right;
+      padding-right: 32px;
+      padding-top: 3px;
+    }
+
+    .tl-content {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .tl-content::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 2px solid var(--ink);
+    }
+
+    .tl-item.highlight .tl-content::before {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .tl-content h4 {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .tl-content p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── ALLOCATION TABLE ── */
+    .alloc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 60px;
+    }
+
+    .alloc-table thead tr {
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .alloc-table th {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 0;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .alloc-table th:last-child { text-align: right; }
+
+    .alloc-table tbody tr {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .alloc-table tbody tr:hover {
+      background: var(--cream-d);
+    }
+
+    .alloc-table td {
+      padding: 14px 0;
+      font-size: 15px;
+    }
+
+    .alloc-table .td-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .alloc-table .td-pct {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 900;
+      text-align: right;
+      color: var(--gold);
+    }
+
+    .alloc-table .td-tokens {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .alloc-bar-wrap {
+      width: 160px;
+    }
+
+    .alloc-bar {
+      height: 4px;
+      background: var(--rule);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .alloc-bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    /* ── LIVE DATA SECTION ── */
+    .live-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 60px;
+    }
+
+    .live-cell {
+      background: var(--cream);
+      padding: 32px;
+    }
+
+    .live-cell .lc-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .live-cell .lc-value {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .live-cell .lc-value.loading {
+      font-size: 16px;
+      font-family: var(--mono);
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .live-cell .lc-sub {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .live-status-bar {
+      background: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 32px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    #rpcStatus { color: var(--gold-lt); }
+    #rpcStatus.err { color: #e05555; }
+
+    /* ── LOG ── */
+    .log-block {
+      background: var(--ink);
+      padding: 24px 32px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 2;
+      color: rgba(255,255,255,0.3);
+      white-space: pre-wrap;
+      margin-bottom: 60px;
+      border-left: 3px solid var(--gold);
+    }
+
+    .log-block .ok  { color: var(--gold-lt); }
+    .log-block .err { color: #e05555; }
+    .log-block .dim { color: rgba(255,255,255,0.12); }
+
+    /* ── INVESTORS ── */
+    .investor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 60px;
+    }
+
+    .investor-cell {
+      background: var(--cream);
+      padding: 28px;
+    }
+
+    .investor-cell .ic-name {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .investor-cell .ic-type {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .investor-cell .ic-note {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── LINKS ── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--rule);
+      margin-bottom: 60px;
+    }
+
+    .link-cell {
+      padding: 24px;
+      border-right: 1px solid var(--rule);
+      text-decoration: none;
+      color: var(--ink);
+      display: block;
+      transition: background 0.15s;
+    }
+
+    .link-cell:last-child { border-right: none; }
+
+    .link-cell:hover { background: var(--cream-d); }
+
+    .link-cell .lk-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .link-cell .lk-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .link-cell .lk-url {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .link-cell .lk-arrow {
+      margin-top: 14px;
+      font-size: 18px;
+      color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 2px solid var(--ink);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 24px 48px;
+      gap: 24px;
+    }
+
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-center {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-align: right;
+    }
+
+    .footer-right span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero, .two-col-prose { grid-template-columns: 1fr; }
+      .hero-right { min-height: 360px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .investor-grid { grid-template-columns: 1fr 1fr; }
+      .links-grid { grid-template-columns: 1fr 1fr; }
+      .footer { grid-template-columns: 1fr; text-align: center; }
+      .pull-quote { padding: 40px 24px; margin: 0 0 60px; }
+      .header-bar, .article, .footer { padding-left: 20px; padding-right: 20px; }
+    }
+
+    @media (max-width: 640px) {
+      .stats-row, .investor-grid, .links-grid, .live-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 100px; }
+      .tl-item { grid-template-columns: 100px 1fr; }
+      .alloc-bar-wrap { display: none; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-hed    { animation: fadeUp 0.7s 0.1s ease both; }
+    .hero-dek    { animation: fadeUp 0.7s 0.25s ease both; }
+    .hero-meta   { animation: fadeUp 0.7s 0.4s ease both; }
+    .hero-live   { animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-quote  { animation: fadeUp 0.7s 0.5s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER BAR -->
+  <div class="header-bar">
+    <div class="header-bar-left">Pacific Ocean Edition &nbsp;·&nbsp; May 2026</div>
+    <div class="header-logo">Pharos</div>
+    <div class="header-bar-right">
+      Mainnet Live<br/>
+      <span id="clockEl" style="color:var(--gold);font-size:12px;">—</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Pacific Ocean Mainnet — Now Live</div>
+      <h1 class="hero-hed">The sea<br/>beneath<br/><em>real</em><br/>finance.</h1>
+      <p class="hero-dek">
+        Pharos just launched its public mainnet. $52 million raised. 131 million testnet addresses. A native token. Founders from Ant Financial and Alibaba. This is not a chain pitching a future — it is infrastructure that shipped.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="label">Total Raised</div>
+          <div class="value">$52M</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Peak Testnet TPS</div>
+          <div class="value">50K</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Testnet Addresses</div>
+          <div class="value">131M</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <!-- geometric art -->
+      <div class="hero-art">
+        <svg viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="300" cy="350" r="280" fill="none" stroke="white" stroke-width="1"/>
+          <circle cx="300" cy="350" r="200" fill="none" stroke="white" stroke-width="0.5"/>
+          <circle cx="300" cy="350" r="120" fill="none" stroke="white" stroke-width="0.5"/>
+          <line x1="20" y1="350" x2="580" y2="350" stroke="white" stroke-width="0.5"/>
+          <line x1="300" y1="70" x2="300" y2="630" stroke="white" stroke-width="0.5"/>
+          <line x1="102" y1="152" x2="498" y2="548" stroke="white" stroke-width="0.3"/>
+          <line x1="498" y1="152" x2="102" y2="548" stroke="white" stroke-width="0.3"/>
+          <polygon points="300,70 498,548 102,548" fill="none" stroke="white" stroke-width="0.5"/>
+          <polygon points="300,630 102,152 498,152" fill="none" stroke="white" stroke-width="0.5"/>
+        </svg>
+      </div>
+
+      <div class="hero-live">
+        <div class="live-label"><div class="live-dot"></div>Live Chain Reads</div>
+        <div class="live-stat">
+          <div class="ls-label">Mainnet Block</div>
+          <div class="ls-value loading" id="mainnetBlock">—</div>
+          <div class="ls-sub">chain <span id="mainnetChain">—</span> &nbsp;·&nbsp; <span id="mainnetGas" class="loading">—</span></div>
+        </div>
+        <div class="live-stat">
+          <div class="ls-label">Testnet Block</div>
+          <div class="ls-value loading" id="testnetBlock">—</div>
+          <div class="ls-sub">chain <span id="testnetChain">—</span> &nbsp;·&nbsp; <span id="testnetGas" class="loading">—</span></div>
+        </div>
+      </div>
+
+      <div class="hero-quote">
+        <blockquote>"The first asset-native, institution-grade L1 engineered for high performance and regulatory compliance."</blockquote>
+        <cite>Pharos Network — Pacific Ocean Mainnet Launch, April 28 2026</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER STRIP -->
+  <div class="ticker-strip">
+    <div class="ticker-inner">
+      <div class="tick-item"><span class="t-label">$PROS</span><span class="t-val">~$0.917</span></div>
+      <div class="tick-item"><span class="t-label">Supply</span><span class="t-val">1,000,000,000</span></div>
+      <div class="tick-item"><span class="t-label">Series A</span><span class="t-val">$44M · Apr 2026</span></div>
+      <div class="tick-item"><span class="t-label">Total Raised</span><span class="t-val">$52M</span></div>
+      <div class="tick-item"><span class="t-label">Testnet Txns</span><span class="t-val">1.266B</span></div>
+      <div class="tick-item"><span class="t-label">Testnet Addresses</span><span class="t-val">131M</span></div>
+      <div class="tick-item"><span class="t-label">Peak Daily Txns</span><span class="t-val">40M</span></div>
+      <div class="tick-item"><span class="t-label">Target TPS</span><span class="t-val">50,000</span></div>
+      <div class="tick-item"><span class="t-label">CCTP Domain</span><span class="t-val">31</span></div>
+      <div class="tick-item"><span class="t-label">Block Time</span><span class="t-val">&lt; 1 Second</span></div>
+      <div class="tick-item"><span class="t-label">Staking APY</span><span class="t-val">Up to 16%</span></div>
+      <div class="tick-item"><span class="t-label">Ecosystem Grant</span><span class="t-val">$20M</span></div>
+    </div>
+  </div>
+
+  <div class="article">
+
+    <!-- 01 — WHAT IT IS -->
+    <div class="section-divider">
+      <div class="sd-num">01</div>
+      <div class="sd-text">
+        <h2>What Pharos Actually Is</h2>
+        <div class="sd-sub">Architecture · Positioning · Differentiation</div>
+      </div>
+    </div>
+
+    <div class="two-col-prose">
+      <div class="prose">
+        <p>Pharos is a full-stack parallel Layer 1 blockchain built specifically for real-world financial infrastructure. It is not a general-purpose chain competing on ecosystem size — it is settlement infrastructure designed from the ground up for RWA tokenization, stablecoin rails, and institutional-grade DeFi.</p>
+        <p>The architecture is built around three layers. L1-Base handles high-performance data availability with hardware acceleration. L1-Core delivers decentralized, high-throughput consensus with subsecond finality. L1-Extension enables Specialized Processing Networks (SPNs), cross-SPN interoperability, and native restaking for heterogeneous financial workloads.</p>
+        <p>What makes Pharos unusual is its Pharos Virtual Machine — optimized for parallel transaction execution — combined with dual VM compatibility across both EVM and WASM environments. This means developers port existing Ethereum tooling directly while accessing a performance layer that general-purpose EVM chains cannot match.</p>
+      </div>
+      <div class="prose">
+        <p>The founding team is not newcomers to scale. CEO Alex Zhang was CTO at Ant Chain. CTO Meng Wu was Chief Security Officer for Ant Financial's Web3 division. CMO Laura Shen led Solana mobile marketing at Solana Labs. These are engineers who have built and operated payment infrastructure at a scale most blockchain projects only describe in theoretical terms.</p>
+        <p>The chain targets a Degree of Parallelism at DP4 — combining scalable consensus, parallel transaction execution, full-lifecycle asynchronous pipelining, and high-performance authenticated storage. GPU-inspired architecture is reported to reduce storage requirements by 80% at scale. The target ceiling is 50,000 transactions per second with sub-second finality.</p>
+        <p>On October 27, 2025, Pharos adopted Chainlink CCIP as its canonical cross-chain messaging infrastructure, alongside Chainlink Data Streams for tokenized RWA markets — completing the oracle integration layer natively rather than as an afterthought.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <blockquote>"Pharos is designed to bridge over $50 trillion in real-world assets into a modular, on-chain economy at internet scale."</blockquote>
+      <cite>Pharos Network — Official Positioning</cite>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+      <div class="stat-cell">
+        <div class="sc-label">Testnet Addresses</div>
+        <div class="sc-value">131M</div>
+        <div class="sc-note">Unique addresses as of July 2025 monthly logbook</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Cumulative Testnet Txns</div>
+        <div class="sc-value">1.26B</div>
+        <div class="sc-note">Record peak: 40 million transactions in a single day</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Target Throughput</div>
+        <div class="sc-value">50K TPS</div>
+        <div class="sc-note">Highest EVM L1 performance target; sub-second finality</div>
+      </div>
+      <div class="stat-cell">
+        <div class="sc-label">Atlantic Testnet Blocks</div>
+        <div class="sc-value">23M</div>
+        <div class="sc-note">With ~3B transactions and 0.5s block times by Oct 2025</div>
+      </div>
+    </div>
+
+    <!-- 02 — THE STORY -->
+    <div class="section-divider">
+      <div class="sd-num">02</div>
+      <div class="sd-text">
+        <h2>From Seed to Pacific Ocean</h2>
+        <div class="sd-sub">A chronology of milestones</div>
+      </div>
+    </div>
+
+    <div class="timeline" style="margin-bottom:60px">
+      <div class="tl-item">
+        <div class="tl-date">Jul 2024</div>
+        <div class="tl-content">
+          <h4>Seed Round — $8M</h4>
+          <p>Led by Lightspeed Faction and Hack VC. Co-investors include SNZ Capital, Reforge, Dispersion Capital, Hash Global, Chorus One, and others. Pharos begins building.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Mar 6, 2025</div>
+        <div class="tl-content">
+          <h4>Public Devnet Launch</h4>
+          <p>First open testnet. Developers gain access to the modular parallel infrastructure. Builder Base Camp program announced with registrations from March 10.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Mar 7, 2025</div>
+        <div class="tl-content">
+          <h4>$20M Ecosystem Grant Program</h4>
+          <p>Announced to support developers, startups, and institutions building RWA applications, decentralized payments, and financial infrastructure on Pharos.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">May 2025</div>
+        <div class="tl-content">
+          <h4>Public Testnet Live</h4>
+          <p>Developers begin building and testing applications. Network activity accelerates throughout the summer.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Oct 27, 2025</div>
+        <div class="tl-content">
+          <h4>Chainlink CCIP Integration</h4>
+          <p>Pharos adopts Chainlink CCIP as its canonical cross-chain messaging infrastructure. Chainlink Data Streams added to support tokenized RWA markets.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Dec 12, 2025</div>
+        <div class="tl-content">
+          <h4>Private Mainnet — Genesis Mint</h4>
+          <p>Genesis supply of 1 billion $PROS minted. Private mainnet launch marks the first milestone in the phased public rollout.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Apr 8, 2026</div>
+        <div class="tl-content">
+          <h4>Series A — $44M</h4>
+          <p>Led by an Asia-based private equity fund, a renewable energy company, and a Hong Kong-regulated financial institution. Sumitomo Corporation Group, SNZ Capital, Chainlink, and Flow Traders participate. Total raised: $52M.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Apr 20, 2026</div>
+        <div class="tl-content">
+          <h4>$PROS Tokenomics Published</h4>
+          <p>1 billion genesis supply. Allocations across foundation, team, investors, and ecosystem. Staking inflation: 0% for months 1–6, then 5% annually.</p>
+        </div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-date">Apr 28, 2026</div>
+        <div class="tl-content">
+          <h4>Pacific Ocean Mainnet — Public Launch ⚓</h4>
+          <p>Hard fork executed. Public mainnet live. The first asset-native, institution-grade L1 designed for high performance and regulatory compliance is now open to the global DeFi ecosystem.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 — PROS TOKENOMICS -->
+    <div class="section-divider">
+      <div class="sd-num">03</div>
+      <div class="sd-text">
+        <h2>$PROS Token — Allocation & Mechanics</h2>
+        <div class="sd-sub">1,000,000,000 Genesis Supply · Phased Staking Issuance</div>
+      </div>
+    </div>
+
+    <table class="alloc-table">
+      <thead>
+        <tr>
+          <th>Allocation Bucket</th>
+          <th>%</th>
+          <th>Tokens</th>
+          <th>Vesting</th>
+          <th style="text-align:left">Distribution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-name">Ecosystem & Community</td>
+          <td class="td-pct">21%</td>
+          <td class="td-tokens">210,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">48–60 months</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:21%"></div></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-name">Team</td>
+          <td class="td-pct">20%</td>
+          <td class="td-tokens">200,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">12M cliff + 36M vest</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:20%"></div></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-name">Investors</td>
+          <td class="td-pct">20%</td>
+          <td class="td-tokens">200,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">12M cliff + 36M vest</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:20%"></div></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-name">Foundation</td>
+          <td class="td-pct">16%</td>
+          <td class="td-tokens">160,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">48–60 months</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:16%"></div></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-name">Node & Liquidity Incentives</td>
+          <td class="td-pct">14%</td>
+          <td class="td-tokens">140,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">48–60 months</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:14%"></div></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-name">Lab Co.</td>
+          <td class="td-pct">9%</td>
+          <td class="td-tokens">90,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">—</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:9%"></div></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-name" style="color:var(--gold)">Airdrop (within Ecosystem)</td>
+          <td class="td-pct" style="color:var(--gold)">6%</td>
+          <td class="td-tokens">60,000,000</td>
+          <td style="font-size:13px;color:var(--muted)">TGE-linked</td>
+          <td><div class="alloc-bar-wrap"><div class="alloc-bar"><div class="alloc-bar-fill" style="width:6%;background:var(--gold-lt)"></div></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="two-col-prose">
+      <div class="prose">
+        <p>$PROS serves as the native coin for transaction fees and on-chain execution costs, with potential partial burns as adoption grows. Validators stake $PROS to secure the network and participate in PoS consensus, earning staking rewards in return. Governance rights allow token holders to vote on network upgrades, parameter adjustments, and ecosystem proposals.</p>
+      </div>
+      <div class="prose">
+        <p>Staking inflation is deliberately phased: 0% for the first six months following mainnet launch, rising to 5% annually from month seven. This design minimizes early supply dilution during price discovery while providing a sustainable reward mechanism for validators and delegators at maturity. Future governance may adjust inflation dynamically based on network conditions.</p>
+      </div>
+    </div>
+
+    <!-- 04 — LIVE RPC DATA -->
+    <div class="section-divider">
+      <div class="sd-num">04</div>
+      <div class="sd-text">
+        <h2>Live Chain Data</h2>
+        <div class="sd-sub">Mainnet + Testnet · Public RPC · Refreshes Every 20s</div>
+      </div>
+    </div>
+
+    <div class="live-grid">
+      <div class="live-cell">
+        <div class="lc-label">Mainnet Block Height</div>
+        <div class="lc-value loading" id="mainnetBlock2">—</div>
+        <div class="lc-sub">Chain <span id="mainnetChain2">—</span> &nbsp;·&nbsp; rpc.pharos.xyz</div>
+      </div>
+      <div class="live-cell">
+        <div class="lc-label">Testnet Block Height</div>
+        <div class="lc-value loading" id="testnetBlock2">—</div>
+        <div class="lc-sub">Chain <span id="testnetChain2">—</span> &nbsp;·&nbsp; atlantic.dplabs-internal.com</div>
+      </div>
+      <div class="live-cell">
+        <div class="lc-label">Mainnet Gas Price</div>
+        <div class="lc-value loading" id="mainnetGas2">—</div>
+        <div class="lc-sub">Gwei &nbsp;·&nbsp; Live read</div>
+      </div>
+      <div class="live-cell">
+        <div class="lc-label">Testnet Gas Price</div>
+        <div class="lc-value loading" id="testnetGas2">—</div>
+        <div class="lc-sub">Gwei &nbsp;·&nbsp; Live read</div>
+      </div>
+    </div>
+
+    <div class="live-status-bar">
+      <span id="rpcStatus">Connecting to RPC nodes...</span>
+      <span id="lastUpdated">—</span>
+    </div>
+
+    <div class="log-block" id="terminalFeed" style="margin-top:1px"><span class="dim">// Pharos Pacific Ocean — live chain feed
+// public rpc · no wallet required · 20s interval</span>
+
+Initialising...
+Dialing mainnet + testnet nodes...</div>
+
+    <!-- 05 — BACKERS -->
+    <div class="section-divider">
+      <div class="sd-num">05</div>
+      <div class="sd-text">
+        <h2>Institutional Backing</h2>
+        <div class="sd-sub">$52M Total Raised · Seed + Series A</div>
+      </div>
+    </div>
+
+    <div class="investor-grid">
+      <div class="investor-cell">
+        <div class="ic-type">Series A Lead</div>
+        <div class="ic-name">Asia Private Equity Consortium</div>
+        <div class="ic-note">Led by undisclosed top-tier Asia-based institutions including private equity, a renewable energy listed company, and a Hong Kong-regulated financial institution.</div>
+      </div>
+      <div class="investor-cell">
+        <div class="ic-type">Series A · Infrastructure</div>
+        <div class="ic-name">Chainlink</div>
+        <div class="ic-note">Strategic backer and the canonical oracle infrastructure of Pharos — CCIP for cross-chain messaging and Data Streams for RWA price feeds, integrated Oct 2025.</div>
+      </div>
+      <div class="investor-cell">
+        <div class="ic-type">Series A · Institutional</div>
+        <div class="ic-name">Sumitomo Corp. Group</div>
+        <div class="ic-note">Subsidiary of Sumitomo Corporation, one of Japan's largest global trading companies. Signals cross-industry institutional appetite for RWA blockchain infrastructure.</div>
+      </div>
+      <div class="investor-cell">
+        <div class="ic-type">Seed + Series A</div>
+        <div class="ic-name">SNZ Capital</div>
+        <div class="ic-note">Crypto-native institution participating across both rounds. One of the most consistent institutional signals in the Pharos cap table.</div>
+      </div>
+      <div class="investor-cell">
+        <div class="ic-type">Seed Lead</div>
+        <div class="ic-name">Lightspeed Faction</div>
+        <div class="ic-note">Co-led the $8M seed round alongside Hack VC. Lightspeed's crypto-native vehicle backing early-stage infrastructure with institutional-grade conviction.</div>
+      </div>
+      <div class="investor-cell">
+        <div class="ic-type">Series A · Market Making</div>
+        <div class="ic-name">Flow Traders</div>
+        <div class="ic-note">One of the world's largest ETF and digital asset market makers. Participation signals intent around liquidity infrastructure for the PROS token and Pharos ecosystem.</div>
+      </div>
+    </div>
+
+    <!-- 06 — RESOURCES -->
+    <div class="section-divider">
+      <div class="sd-num">06</div>
+      <div class="sd-text">
+        <h2>Ecosystem References</h2>
+        <div class="sd-sub">Official links · Explorers · Documentation</div>
+      </div>
+    </div>
+
+    <div class="links-grid">
+      <a class="link-cell" href="https://pharos.xyz" target="_blank">
+        <div class="lk-label">Main Site</div>
+        <div class="lk-name">Pharos.xyz</div>
+        <div class="lk-url">pharos.xyz</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://pharos.xyz/devhub" target="_blank">
+        <div class="lk-label">Developers</div>
+        <div class="lk-name">Dev Hub</div>
+        <div class="lk-url">pharos.xyz/devhub</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://docs.pharos.xyz" target="_blank">
+        <div class="lk-label">Documentation</div>
+        <div class="lk-name">Docs</div>
+        <div class="lk-url">docs.pharos.xyz</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://testnet.pharosnetwork.xyz/" target="_blank">
+        <div class="lk-label">Testnet</div>
+        <div class="lk-name">Faucet</div>
+        <div class="lk-url">testnet.pharosnetwork.xyz</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://www.pharosscan.xyz" target="_blank">
+        <div class="lk-label">Mainnet Explorer</div>
+        <div class="lk-name">PharosScan</div>
+        <div class="lk-url">pharosscan.xyz</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://atlantic.pharosscan.xyz/" target="_blank">
+        <div class="lk-label">Testnet Explorer</div>
+        <div class="lk-name">Atlantic Scan</div>
+        <div class="lk-url">atlantic.pharosscan.xyz</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://pharos.socialscan.io/" target="_blank">
+        <div class="lk-label">Explorer</div>
+        <div class="lk-name">SocialScan</div>
+        <div class="lk-url">pharos.socialscan.io</div>
+        <div class="lk-arrow">→</div>
+      </a>
+      <a class="link-cell" href="https://www.buildonpharos.com/" target="_blank">
+        <div class="lk-label">Builder Program</div>
+        <div class="lk-name">Base Camp</div>
+        <div class="lk-url">buildonpharos.com</div>
+        <div class="lk-arrow">→</div>
+      </a>
+    </div>
+
+  </div><!-- /article -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Pacific Ocean Mainnet &nbsp;·&nbsp; April 28, 2026<br/>Live RPC · No wallet required</div>
+    <div class="footer-center">Pharos</div>
+    <div class="footer-right">Made for the Pharos Ecosystem<br/><span>By Kennyy</span></div>
+  </footer>
+
+  <script>
+    // Clock
+    const clockEl = document.getElementById('clockEl');
+    function tick() {
+      clockEl.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    const endpoints = {
+      mainnet: 'https://rpc.pharos.xyz',
+      testnet: 'https://atlantic.dplabs-internal.com'
+    };
+
+    async function rpcCall(url, method, params = []) {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', method, params, id: 1 })
+      });
+      if (!res.ok) throw new Error(`${method} → HTTP ${res.status}`);
+      const d = await res.json();
+      if (d.error) throw new Error(d.error.message || 'rpc error');
+      return d.result;
+    }
+
+    async function fetchNet(url) {
+      const [block, gas, chain] = await Promise.all([
+        rpcCall(url, 'eth_blockNumber'),
+        rpcCall(url, 'eth_gasPrice'),
+        rpcCall(url, 'net_version')
+      ]);
+      return {
+        block:   parseInt(block, 16).toLocaleString(),
+        gas:     (parseInt(gas, 16) / 1e9).toFixed(2) + ' gwei',
+        chain
+      };
+    }
+
+    function setVal(id, val) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = val;
+      el.classList.remove('loading');
+    }
+
+    let logLines = [
+      '<span class="dim">// Pharos Pacific Ocean — live chain feed</span>',
+      '<span class="dim">// public rpc · no wallet required · 20s interval</span>',
+      ''
+    ];
+
+    function appendLog(prefix, msg, cls = '') {
+      const t = new Date().toLocaleTimeString('en-GB', { hour12: false });
+      logLines.push(`<span class="${cls}">[${t}] ${prefix.padEnd(8)} ${msg}</span>`);
+      if (logLines.length > 18) logLines = logLines.slice(-18);
+      document.getElementById('terminalFeed').innerHTML = logLines.join('\n');
+    }
+
+    async function refresh() {
+      appendLog('POLL', 'dialing rpc.pharos.xyz + atlantic.dplabs-internal.com');
+
+      try {
+        const [mainnet, testnet] = await Promise.all([
+          fetchNet(endpoints.mainnet),
+          fetchNet(endpoints.testnet)
+        ]);
+
+        // hero
+        setVal('mainnetBlock', mainnet.block);
+        setVal('testnetBlock', testnet.block);
+        setVal('mainnetGas',   mainnet.gas);
+        setVal('testnetGas',   testnet.gas);
+        setVal('mainnetChain', mainnet.chain);
+        setVal('testnetChain', testnet.chain);
+
+        // data grid
+        setVal('mainnetBlock2', mainnet.block);
+        setVal('testnetBlock2', testnet.block);
+        setVal('mainnetGas2',   mainnet.gas);
+        setVal('testnetGas2',   testnet.gas);
+        setVal('mainnetChain2', mainnet.chain);
+        setVal('testnetChain2', testnet.chain);
+
+        const statusEl  = document.getElementById('rpcStatus');
+        const lastEl    = document.getElementById('lastUpdated');
+        statusEl.textContent = 'All nodes healthy · Pacific Ocean Mainnet live';
+        statusEl.className   = '';
+        lastEl.textContent   = 'Last read: ' + new Date().toLocaleTimeString();
+
+        appendLog('OK', `mainnet chain=${mainnet.chain} block=${mainnet.block} gas=${mainnet.gas}`, 'ok');
+        appendLog('OK', `testnet chain=${testnet.chain} block=${testnet.block} gas=${testnet.gas}`, 'ok');
+
+      } catch (err) {
+        const statusEl = document.getElementById('rpcStatus');
+        statusEl.textContent = 'RPC read failed — retrying in 20s';
+        statusEl.className   = 'err';
+        appendLog('ERR', err.message, 'err');
+      }
+    }
+
+    refresh();
+    setInterval(refresh, 20000);
+  </script>
+</body>
+</html>
